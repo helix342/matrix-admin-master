@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>Matrix Template - The Ultimate Multipurpose admin template</title>
+    <title>MIC</title>
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -38,13 +38,28 @@
         <!-- ============================================================== -->
         <!-- Login box.scss -->
         <!-- ============================================================== -->
-        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
-            <div class="auth-box bg-dark border-top border-secondary">
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark" style="margin: 0; padding: 0;">
+            <div class="auth-box bg-dark border-top border-secondary" style="margin: 0; padding: 0;">
                 <div id="loginform">
                     <div class="text-center p-t-20 p-b-20">
-                        <span class="db"><img src="assets/images/logo.png" alt="logo" /></span>
+                        <h2 style="color:white;">
+                            <b>MKCE Info Corner</b>
+                        </h2>
+                        <span class="db"><img src="assets/images/logo2.png" alt="logo" />
+                        </span>
                     </div>
-                    <!-- Form -->
+
+                    <div class="py-3">
+                        <ul class="nav nav-tabs nav-fill " id="myTabs" role="tablist">
+                        <li class="nav-item">
+                        <a class="nav-link active show" id="faculty-tab" data-toggle="tab" href="#faculty" role="tab" aria-controls="faculty" aria-selected="true"><b>Faculty</b></a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" id="student-tab" data-toggle="tab" href="#student" role="tab" aria-controls="student" aria-selected="false"><b>Student</b></a>
+                        </li>
+                        </ul>
+                    </div>
+
                     <form class="form-horizontal m-t-20" id="loginform" action="index.html">
                         <div class="row p-b-30">
                             <div class="col-12">
@@ -58,7 +73,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
                                     </div>
-                                    <input type="text" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required="">
+                                    <input type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required="" >
                                 </div>
                             </div>
                         </div>
@@ -74,6 +89,12 @@
                         </div>
                     </form>
                 </div>
+
+                <footer class="footer text-center" style="color:white">
+                    <b> All Rights Reserved by M.Kumarasamy College of Engineering, Karur. <br> <br>
+                    <span style="color:yellow"> Version 3.0 </span></b>
+                </footer>
+
                 <div id="recoverform">
                     <div class="text-center">
                         <span class="text-white">Enter your e-mail address below and we will send you instructions how to recover a password.</span>
