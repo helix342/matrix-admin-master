@@ -176,7 +176,7 @@
                             <li class="sidebar-item"><a href="form-wizard.html" class="sidebar-link"><i class="mdi mdi-book-open"></i><span class="hide-menu"> Exams Details </span></a></li>
                         </ul>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="tables.html" aria-expanded="false"><i class="mdi mdi-bus"></i><span class="hide-menu">Bus Booking</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="bus.html" aria-expanded="false"><i class="mdi mdi-bus"></i><span class="hide-menu">Bus Booking</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="grid.html" aria-expanded="false"><i class="mdi mdi-account-key"></i><span class="hide-menu">Change password</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="https://www.camsmkce.in/index.aspx" aria-expanded="false"><i class="mdi mdi-vector-arrange-above"></i><span class="hide-menu">Cams</span></a>
 
@@ -275,6 +275,7 @@
                                                     Please select gender.
                                                 </div>
                                                 </div>
+
                                             </div>
                                             <div class="form-row">
                                                 <div class="col-md-4 mb-3">
@@ -733,29 +734,14 @@
                                         
                                             <div class="tab-pane p-20" id="profile" role="tabpanel">
                                         
-                                            <div class="modal fade" id="studentViewModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">View Certificate</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                        <img id="image" src="" alt="Computer man" class="center" style="width:80%;height:80%;">
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                         
                                             <div class="modal fade" id="studentAcademic" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="exampleModalLabel">Add Academic Details</h5>
-                                                                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                                                                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
                                                                 <i class="mdi mdi-close"></i> 
                                                                 </button>
                                                         </div>
@@ -814,7 +800,7 @@
                                                         </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                         <button type="submit" class="btn btn-primary">Save details</button>
                                                         </div>
                                                         <div id="test"> </div>
@@ -827,7 +813,7 @@
                                                 <div class="modal-content">
                                                 <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Edit details</h5>
-                                                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
                                                 <i class="mdi mdi-close"></i> 
                                                 </button>
                                                 </div>
@@ -890,7 +876,7 @@
                                                 </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-primary">Update details</button>
                                                 </div>
                                                 </form>
@@ -903,7 +889,7 @@
                                                 <div class="card">
                                                 <div class="card-header">
                                                 <h4>Academic Details
-                                                <button type="button" style="float: right;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#studentAcademic">
+                                                <button type="button" style="float:right;" class="btn btn-primary" data-toggle="modal" data-target="#studentAcademic">
                                                 Add details
                                                 </button>
                                                 </h4>
@@ -1411,7 +1397,49 @@
                                         </div>
                                         </form>
                                         </div>
-                                        
+                                        <div class="tab-pane p-20" id="swot" role="tabpanel">
+                                        <form id="swot" class="needs-validation" novalidate="">
+                                        <div id="swotmsg" class="alert alert-warning d-none"></div>
+                                        <div class="card-header">
+                                        <h4> SWOT Analysis </h4>
+                                        </div>
+                                        <div class="form-row">
+                                        <div class="col-md-6 mb-1">
+                                        <label for="validationCustom01">Strengths</label>
+                                        <input type="text" name="Strengths" class="form-control" id="validationCustom01" placeholder="Strengths" value="">
+                                        <div class="valid-feedback">
+                                        Looks good!
+                                        </div>
+                                        </div>
+                                        <div class="col-md-6 mb-1">
+                                        <label for="validationCustom02">Weaknesses</label>
+                                        <input type="text" class="form-control" name="Weaknesses" id="validationCustom02" placeholder="Weaknesses" value="">
+                                        <div class="valid-feedback">
+                                        Looks good!
+                                        </div>
+                                        </div>
+                                        </div>
+                                        <div class="form-row">
+                                        <div class="col-md-6 mb-1">
+                                        <label for="validationCustom02">Opportunities</label>
+                                        <input type="text" class="form-control" name="Opportunities" id="validationCustom02" placeholder="Opportunities" value="">
+                                        <div class="valid-feedback">
+                                        Looks good!
+                                        </div>
+                                        </div>
+                                        <div class="col-md-6 mb-1">
+                                        <label for="validationCustom02">Threats</label>
+                                        <input type="text" class="form-control" name="Threats" id="validationCustom02" placeholder="Threats" value="">
+                                        <div class="valid-feedback">
+                                        Looks good!
+                                        </div>
+                                        </div>
+                                        </div>
+                                        <div class="form-row">
+                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                        </div>
+                                        </form>
+                                        </div>
                                         </div>
                                         </div>
                                     
