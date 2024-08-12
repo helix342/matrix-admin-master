@@ -1,5 +1,7 @@
 <?php
 include("db.php");
+$sql = "SELECT * FROM academic_details";
+$result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -249,7 +251,7 @@ include("db.php");
                                                 <a class="nav-link" data-toggle="tab" href="#swot" role="tab" aria-selected="false"><span class="hidden-sm-up"></span> <span class="hidden-xs-down"><i class="bi bi-card-checklist"></i><b> SWOT Analysis</b></span></a> </li>
                                         </ul>
                                         <div class="tab-content tabcontent-border">
-                                            <div class="tab-pane active show" id="home" role="tabpanel">
+                                        <div class="tab-pane active show" id="home" role="tabpanel">
                                                 <form id="basic" class="needs-validation" novalidate="">
                                                     <div id="errorbasic" class="alert alert-warning d-none"></div>
                                                 <div class="card-header">
@@ -736,10 +738,7 @@ include("db.php");
                                             </form>
                                             </div>
                                         
-                                            <div class="tab-pane p-20" id="profile" role="tabpanel">
-                                        
-
-                                        
+                                        <div class="tab-pane p-20" id="profile" role="tabpanel">
                                             <div class="modal fade" id="studentAcademic" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -772,21 +771,17 @@ include("db.php");
                                                         <option value="M.E">M.E</option>
                                                         </select>
                                                         </div>
-                                                        <div class="mb-3" id="spec" style="display: none;">
+                                                        <div class="mb-3" id="spec">
                                                         <label for="">Specialization / Branch *</label>
-                                                        <input type="text" name="branch" id="branch" class="form-control">
+                                                        <input type="text" name="branch" id="branch" class="form-control" placeholder="Enter Specilization">
                                                         </div>
                                                         <div class="mb-3">
                                                         <label for="">Institution Name *</label>
-                                                        <input type="text" name="iname" class="form-control">
+                                                        <input type="text" name="iname" class="form-control" placeholder="Enter Institution Name">
                                                         </div>
                                                         <div class="mb-3">
                                                         <label for="">Board/University *</label>
-                                                        <input type="text" name="univ" class="form-control">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                        <label for="">Medium of Study *</label>
-                                                        <input type="text" name="mes" class="form-control">
+                                                        <input type="text" name="univ" class="form-control" placeholder="Enter Board/University Name">
                                                         </div>
                                                         <div class="mb-3">
                                                         <label for="">Year of Completion *</label>
@@ -815,106 +810,401 @@ include("db.php");
                                                     </div>
                                                 </div>
                                             </div>
-                                                <div class="modal fade" id="studentEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="studentEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Edit details</h5>
+                                                                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                                                                <i class="mdi mdi-close"></i> 
+                                                                </button>
+                                                        </div>
+                                                        <form id="updateStudent">
+                                                        <div class="modal-body">
+                                                            <div id="errorMessageUpdate" class="alert alert-warning d-none"></div>
+                                                            <input type="hidden" name="student_id" id="student_id">
+                                                            <div class="mb-3">
+                                                            <label for="">Course *</label>
+                                                            <select class="form-control" name="course" id="course2" onchange="if (!window.__cfRLUnblockHandlers) return false; toggleDivVisibility1()" required="">
+                                                                <option value="">Select Course</option>
+                                                                <option value="SSLC">SSLC</option>
+                                                                <option value="HSC">HSC</option>
+                                                                <option value="ITI">ITI</option>
+                                                                <option value="DIPLOMA">DIPLOMA</option>
+                                                                <option value="UG">UG</option>
+                                                                <option value="PG">PG</option>
+                                                                <option value="PHD">PHD</option>
+                                                            </select>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="validationCustom03">Degree *</label>
+                                                                    <select class="form-control" name="degree" id="degree2" required="">
+                                                                    <option value="">Select Degree</option>
+                                                                    </select>
+                                                                </div>
+                                                            <div class="mb-3" id="spec2">
+                                                                <label for="">Specialization / Branch *</label>
+                                                                <input type="text" name="branch" id="branch" class="form-control">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="">Institution Name *</label>
+                                                                <input type="text" name="name" id="name" class="form-control">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="">Board/University *</label>
+                                                                <input type="text" name="univ" id="univ" class="form-control">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="">Year of Completion *</label>
+                                                                <input type="text" name="yc" id="yc" class="form-control">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="">Percentage (%)/CGPA*</label>
+                                                                <input type="text" name="score" id="score" class="form-control">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="">Certificate*</label>
+                                                                <label for="">(upload less than 2 mb)</label>
+                                                                <div class="input-group">
+                                                                    <input type="file" class="form-control custom-file-input" name="cert" id="uploadFile3" onchange="if (!window.__cfRLUnblockHandlers) return false; return fileValidationucert()" aria-describedby="inputGroupPrepend" required="">
+                                                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                                                </div>
+                                                                <p style="color:red;" id="tutorial"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Update details</button>
+                                                        </div>
+                                                    </form>
+                                                    </div>
+                                                </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="card-header">
+                                                                <h4>Academic Details
+                                                                    <button type="button" style="float:right;" class="btn btn-primary" data-toggle="modal" data-target="#studentAcademic">
+                                                                    Add details
+                                                                    </button>
+                                                                </h4>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div class="table-responsive">
+                                                                    <table id="myTable" class="table table-bordered table-striped">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th><b>S.No</b></th>
+                                                                        <th><b>Course</b></th>
+                                                                        <th><b>Institution Name</b></th>
+                                                                        <th><b>Board/University</b></th>
+                                                                        <th><b>Year of Passing</b></th>
+                                                                        <th><b>Percentage/CGPA</b></th>
+                                                                        <th><b>Certificate </b></th>
+                                                                        <th><b>Action</b></th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <?php
+                                                                        $id = 1;
+                                                                        while ($row = mysqli_fetch_assoc($result)){ 
+                                                                        ?>
+                                                                        <tr>
+                                                                            <td><?php echo $id; ?></td>
+                                                                            <td><?php echo $row['Course']; ?></td>
+                                                                            <td><?php echo $row['Institution Name']; ?></td>
+                                                                            <td><?php echo $row['Board/University']; ?></td>
+                                                                            <td><?php echo $row['Year of Passing']; ?></td>
+                                                                            <td><?php echo $row['Percentage/CGPA']; ?></td>
+                                                                            <td>
+                                                                                <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-success btncertificate">Certificate</button>
+                                                                                
+                                                                            </td>
+                                                                            <td>
+                                                                                <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-warning btnuseredit" data-target="#studentEditModal">Edit</button>
+                                                                                <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-danger btnuserdelete">Delete</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <?php
+                                                                        $id++;
+                                                                        }
+                                                                        ?>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="tab-pane p-20" id="messages" role="tabpanel">
+                                            <div class="modal fade" id="familyadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add family Details</h5>
+                                            <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                                            <i class="mdi mdi-close"></i> 
+                                            </button>
+                                            </div>
+                                            <form id="familyadd2">
+                                            <div class="modal-body">
+                                            <div id="errorMessage" class="alert alert-warning d-none"></div>
+                                            <div class="mb-3">
+                                            <label for="">Name *</label>
+                                            <input type="text" name="name" class="form-control">
+                                            </div>
+                                            <div class="mb-3">
+                                            <label for="">Gender *</label>
+                                            <select class="form-control" name="gender" required="">
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Transgender">Transgender</option>
+                                            </select>
+                                            </div>
+                                            <div class="mb-3">Relationship *
+                                            <select class="form-control" name="relationship">
+                                            <option value="">Select Relationship</option>
+                                            <option value="Brother">Brother</option>
+                                            <option value="Brother-in-Law">Brother-in-Law</option>
+                                            <option value="Daughter">Daughter</option>
+                                            <option value="Daughter-in-Law">Daughter-in-Law</option>
+                                            <option value="Father">Father</option>
+                                            <option value="Father-in-Law">Father-in-Law</option>
+                                            <option value="Grand-Daughter">Grand-Daughter</option>
+                                            <option value="Grand-Father">Grand-Father</option>
+                                            <option value="Grand-Mother">Grand-Mother</option>
+                                            <option value="Grand-Son">Grand-Son</option>
+                                            <option value="Husband">Husband</option>
+                                            <option value="Mother">Mother</option>
+                                            <option value="Mother-in-Law">Mother-in-Law</option>
+                                            <option value="Others">Others</option>
+                                            <option value="Sister">Sister</option>
+                                            <option value="Sister-in-Law">Sister-in-Law</option>
+                                            <option value="Son">Son</option>
+                                            <option value="Son-in-Law">Son-in-Law</option>
+                                            <option value="Uncle">Uncle</option>
+                                            <option value="Wife">Wife</option>
+                                            </select>
+                                            </div>
+                                            <div class="mb-3">
+                                            <label for="">Occupation *</label>
+                                            <input type="text" name="occu" class="form-control">
+                                            </div>
+                                            <div class="mb-3">
+                                            <label for="">Organization *</label>
+                                            <input type="text" name="org" class="form-control">
+                                            </div>
+                                            <div class="mb-3">
+                                            <label for="">Mobile *</label>
+                                            <input type="text" name="mobile" class="form-control">
+                                            </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Add member</button>
+                                            </div>
+                                            </form>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            
+                                            <div class="modal fade" id="studentEditModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit Student</h5>
+                                            <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                                            <i class="mdi mdi-close"></i> 
+                                            </button>
+                                            </div>
+                                            <form id="updatefamily">
+                                            <div class="modal-body">
+                                            <div id="errorMessageUpdate" class="alert alert-warning d-none"></div>
+                                            <input type="hidden" name="student_id2" id="student_id2">
+                                            <div class="mb-3">
+                                            <label for="">Name *</label>
+                                            <input type="text" name="name" id="name2" class="form-control">
+                                            </div>
+                                            <div class="mb-3">
+                                            <label for="">Gender *</label>
+                                            <select class="form-control" name="gender" id="gender" required="">
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Transgender">Transgender</option>
+                                            </select>
+                                            </div>
+                                            <div class="mb-3">Relationship *
+                                            <select class="form-control" name="relationship" id="relationship">
+                                            <option value="">Select Relationship</option>
+                                            <option value="Brother">Brother</option>
+                                            <option value="Brother-in-Law">Brother-in-Law</option>
+                                            <option value="Daughter">Daughter</option>
+                                            <option value="Daughter-in-Law">Daughter-in-Law</option>
+                                            <option value="Father">Father</option>
+                                            <option value="Father-in-Law">Father-in-Law</option>
+                                            <option value="Grand-Daughter">Grand-Daughter</option>
+                                            <option value="Grand-Father">Grand-Father</option>
+                                            <option value="Grand-Mother">Grand-Mother</option>
+                                            <option value="Grand-Son">Grand-Son</option>
+                                            <option value="Husband">Husband</option>
+                                            <option value="Mother">Mother</option>
+                                            <option value="Mother-in-Law">Mother-in-Law</option>
+                                            <option value="Others">Others</option>
+                                            <option value="Sister">Sister</option>
+                                            <option value="Sister-in-Law">Sister-in-Law</option>
+                                            <option value="Son">Son</option>
+                                            <option value="Son-in-Law">Son-in-Law</option>
+                                            <option value="Uncle">Uncle</option>
+                                            <option value="Wife">Wife</option>
+                                            </select>
+                                            </div>
+                                            <div class="mb-3">
+                                            <label for="">Occupation *</label>
+                                            <input type="text" name="occu" id="occu" class="form-control">
+                                            </div>
+                                            <div class="mb-3">
+                                            <label for="">Organization *</label>
+                                            <input type="text" name="org" id="org" class="form-control">
+                                            </div>
+                                            <div class="mb-3">
+                                            <label for="">Mobile *</label>
+                                            <input type="text" name="mobile" id="mobile" class="form-control">
+                                            </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Update Member</button>
+                                            </div>
+                                            </form>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-md-12">
+                                            <div class="card">
+                                            <div class="card-header">
+                                            <h4>Family Details
+                                            <button type="button" style="float: right;" class="btn btn-primary" data-toggle="modal" data-target="#familyadd">
+                                            Add Family Members
+                                            </button>
+                                            </h4>
+                                            </div>
+                                            <div class="card-body">
+                                            <div class="table-responsive">
+                                            <table id="myTable1" class="table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                            <th><b>S.No</b></th>
+                                            <th><b>Name</b></th>
+                                            <th><b>Relationship</b></th>
+                                            <th><b>Occupation</b></th>
+                                            <th><b>Organization</b></th>
+                                            <th><b>Mobile Number</b></th>
+                                            <th align="center"><b>Action</b></th>
+                                            </tr>
+                                            </thead>
+                                            </table>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            
+                                        <div class="tab-pane p-20" id="parents" role="tabpanel">
+                                                <div class="modal fade" id="studentAddParentMeetingDetails" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                 <div class="modal-content">
                                                 <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Edit details</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Add Parents-Meeting Details</h5>
                                                 <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
                                                 <i class="mdi mdi-close"></i> 
                                                 </button>
                                                 </div>
-                                                <form id="updateStudent">
+                                                <form id="saveparentsmeetingdetails">
                                                 <div class="modal-body">
-                                                <div id="errorMessageUpdate" class="alert alert-warning d-none"></div>
-                                                <input type="hidden" name="student_id" id="student_id">
+                                                <div id="errorparentsMessage" class="alert alert-warning d-none"></div>
                                                 <div class="mb-3">
-                                                <label for="">Course *</label>
-                                                <select class="form-control" name="course" id="course2" onchange="if (!window.__cfRLUnblockHandlers) return false; toggleDivVisibility1()" required="">
-                                                <option value="">Select Course</option>
-                                                <option value="SSLC">SSLC</option>
-                                                <option value="HSC">HSC</option>
-                                                <option value="ITI">ITI</option>
-                                                <option value="DIPLOMA">DIPLOMA</option>
-                                                <option value="UG">UG</option>
-                                                <option value="PG">PG</option>
-                                                <option value="PHD">PHD</option>
-                                                <option value="PDF">PDF</option>
-                                                </select>
+                                                <label for="date">Date* : </label>
+                                                <input type="date" name="pmdate" id="pmdate" class="form-control" required="">
                                                 </div>
                                                 <div class="mb-3">
-                                                <label for="validationCustom03">Degree *</label>
-                                                <select class="form-control" name="degree" id="degree2" required="">
-                                                <option value="">Select Degree</option>
-                                                </select>
+                                                <label for="purpose-meeting">Purpose of Meeting* : </label>
+                                                <input type="text" name="purpose" id="purpose-meeting" class="form-control" required="">
                                                 </div>
-                                                <div class="mb-3" id="spec2">
-                                                <label for="">Specialization / Branch *</label>
-                                                <input type="text" name="branch" id="branch" class="form-control">
-                                                </div>
-                                                <div class="mb-3">
-                                                <label for="">Institution Name *</label>
-                                                <input type="text" name="name" id="name" class="form-control">
-                                                </div>
-                                                <div class="mb-3">
-                                                <label for="">Board/University *</label>
-                                                <input type="text" name="univ" id="univ" class="form-control">
-                                                </div>
-                                                <div class="mb-3">
-                                                <label for="">Medium of Study *</label>
-                                                <input type="text" name="mes" id="mes" class="form-control">
-                                                </div>
-                                                <div class="mb-3">
-                                                <label for="">Year of Completion *</label>
-                                                <input type="text" name="yc" id="yc" class="form-control">
-                                                </div>
-                                                <div class="mb-3">
-                                                <label for="">Percentage (%)/CGPA*</label>
-                                                <input type="text" name="score" id="score" class="form-control">
-                                                </div>
-                                                <div class="mb-3">
-                                                <label for="">Certificate*</label>
-                                                <label for="">(upload less than 2 mb)</label>
-                                                <div class="input-group">
-                                                <input type="file" class="form-control custom-file-input" name="cert" id="uploadFile3" onchange="if (!window.__cfRLUnblockHandlers) return false; return fileValidationucert()" aria-describedby="inputGroupPrepend" required="">
-                                                <label class="custom-file-label" for="customFile">Choose file</label>
-                                                </div>
-                                                <p style="color:red;" id="tutorial"></p>
-                                                </div>
+                                                
                                                 </div>
                                                 <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Update details</button>
+                                                <button type="submit" class="btn btn-primary">Save details</button>
                                                 </div>
                                                 </form>
                                                 </div>
                                                 </div>
                                                 </div>
-
+                                                <div class="modal fade" id="parenteditmodel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Meeting</h5>
+                                                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                                                <i class="mdi mdi-close"></i> 
+                                                </button>
+                                                </div>
+                                                <form id="updparent">
+                                                <div class="modal-body">
+                                                <div id="errorMessageUpdate" class="alert alert-warning d-none"></div>
+                                                <input type="hidden" name="student_id3" id="student_id3">
+                                                <div class="mb-3">
+                                                <label for="date">Date* : </label>
+                                                <input type="date" name="pmdate2" id="pmdate2" class="form-control" required="">
+                                                </div>
+                                                <div class="mb-3">
+                                                <label for="purpose-meeting">Purpose of Meeting* : </label>
+                                                <br>
+                                                <input type="text" name="purpose-meeting2" id="purpose-meeting2" class="form-control" required="">
+                                                </div>
+                                                
+                                                <input type="hidden" name="status2" id="status2">
+                                                </div>
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary btn-md">Update details</button>
+                                                </div>
+                                                </form>
+                                                </div>
+                                                </div>
+                                                </div>
                                                 <div class="row">
                                                 <div class="col-md-12">
                                                 <div class="card">
                                                 <div class="card-header">
-                                                <h4>Academic Details
-                                                <button type="button" style="float:right;" class="btn btn-primary" data-toggle="modal" data-target="#studentAcademic">
+                                                <h4>Parents-Meeting Details
+                                                <button type="button" style="float: right;" class="btn btn-primary" data-toggle="modal" data-target="#studentAddParentMeetingDetails">
                                                 Add details
                                                 </button>
                                                 </h4>
                                                 </div>
                                                 <div class="card-body">
                                                 <div class="table-responsive">
-                                                <table id="myTable" class="table table-bordered table-striped">
+                                                <table id="myTable30" class="table table-bordered table-striped">
                                                 <thead>
                                                 <tr>
-                                                <th><b>Course</b></th>
-                                                <th><b>Institution Name</b></th>
-                                                <th><b>Board/University</b></th>
-                                                <th><b>Year of Passing</b></th>
-                                                <th><b>Percentage/CGPA</b></th>
-                                                <th><b>Certificate </b></th>
+                                                <th><b>Date</b></th>
+                                                <th><b>Purpose of Meeting</b></th>
+                                                <th><b>Points Discussed</b></th>
                                                 <th><b>Action</b></th>
+                                                <th><b>Status</b></th>
                                                 </tr>
                                                 </thead>
+                                                <tbody>
+                                                </tbody>
                                                 </table>
                                                 </div>
                                                 </div>
@@ -923,532 +1213,259 @@ include("db.php");
                                                 </div>
                                                 </div>
                                         
-                                        <div class="tab-pane p-20" id="messages" role="tabpanel">
-                                        <div class="modal fade" id="familyadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add family Details</h5>
-                                        <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                                        <i class="mdi mdi-close"></i> 
-                                        </button>
-                                        </div>
-                                        <form id="familyadd2">
-                                        <div class="modal-body">
-                                        <div id="errorMessage" class="alert alert-warning d-none"></div>
-                                        <div class="mb-3">
-                                        <label for="">Name *</label>
-                                        <input type="text" name="name" class="form-control">
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="">Gender *</label>
-                                        <select class="form-control" name="gender" required="">
-                                        <option value="">Select Gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Transgender">Transgender</option>
-                                        </select>
-                                        </div>
-                                        <div class="mb-3">Relationship *
-                                        <select class="form-control" name="relationship">
-                                        <option value="">Select Relationship</option>
-                                        <option value="Brother">Brother</option>
-                                        <option value="Brother-in-Law">Brother-in-Law</option>
-                                        <option value="Daughter">Daughter</option>
-                                        <option value="Daughter-in-Law">Daughter-in-Law</option>
-                                        <option value="Father">Father</option>
-                                        <option value="Father-in-Law">Father-in-Law</option>
-                                        <option value="Grand-Daughter">Grand-Daughter</option>
-                                        <option value="Grand-Father">Grand-Father</option>
-                                        <option value="Grand-Mother">Grand-Mother</option>
-                                        <option value="Grand-Son">Grand-Son</option>
-                                        <option value="Husband">Husband</option>
-                                        <option value="Mother">Mother</option>
-                                        <option value="Mother-in-Law">Mother-in-Law</option>
-                                        <option value="Others">Others</option>
-                                        <option value="Sister">Sister</option>
-                                        <option value="Sister-in-Law">Sister-in-Law</option>
-                                        <option value="Son">Son</option>
-                                        <option value="Son-in-Law">Son-in-Law</option>
-                                        <option value="Uncle">Uncle</option>
-                                        <option value="Wife">Wife</option>
-                                        </select>
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="">Occupation *</label>
-                                        <input type="text" name="occu" class="form-control">
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="">Organization *</label>
-                                        <input type="text" name="org" class="form-control">
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="">Mobile *</label>
-                                        <input type="text" name="mobile" class="form-control">
-                                        </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Add member</button>
-                                        </div>
-                                        </form>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        
-                                        <div class="modal fade" id="studentEditModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Edit Student</h5>
-                                        <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                                        <i class="mdi mdi-close"></i> 
-                                        </button>
-                                        </div>
-                                        <form id="updatefamily">
-                                        <div class="modal-body">
-                                        <div id="errorMessageUpdate" class="alert alert-warning d-none"></div>
-                                        <input type="hidden" name="student_id2" id="student_id2">
-                                        <div class="mb-3">
-                                        <label for="">Name *</label>
-                                        <input type="text" name="name" id="name2" class="form-control">
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="">Gender *</label>
-                                        <select class="form-control" name="gender" id="gender" required="">
-                                        <option value="">Select Gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Transgender">Transgender</option>
-                                        </select>
-                                        </div>
-                                        <div class="mb-3">Relationship *
-                                        <select class="form-control" name="relationship" id="relationship">
-                                        <option value="">Select Relationship</option>
-                                        <option value="Brother">Brother</option>
-                                        <option value="Brother-in-Law">Brother-in-Law</option>
-                                        <option value="Daughter">Daughter</option>
-                                        <option value="Daughter-in-Law">Daughter-in-Law</option>
-                                        <option value="Father">Father</option>
-                                        <option value="Father-in-Law">Father-in-Law</option>
-                                        <option value="Grand-Daughter">Grand-Daughter</option>
-                                        <option value="Grand-Father">Grand-Father</option>
-                                        <option value="Grand-Mother">Grand-Mother</option>
-                                        <option value="Grand-Son">Grand-Son</option>
-                                        <option value="Husband">Husband</option>
-                                        <option value="Mother">Mother</option>
-                                        <option value="Mother-in-Law">Mother-in-Law</option>
-                                        <option value="Others">Others</option>
-                                        <option value="Sister">Sister</option>
-                                        <option value="Sister-in-Law">Sister-in-Law</option>
-                                        <option value="Son">Son</option>
-                                        <option value="Son-in-Law">Son-in-Law</option>
-                                        <option value="Uncle">Uncle</option>
-                                        <option value="Wife">Wife</option>
-                                        </select>
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="">Occupation *</label>
-                                        <input type="text" name="occu" id="occu" class="form-control">
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="">Organization *</label>
-                                        <input type="text" name="org" id="org" class="form-control">
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="">Mobile *</label>
-                                        <input type="text" name="mobile" id="mobile" class="form-control">
-                                        </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Update Member</button>
-                                        </div>
-                                        </form>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        <div class="row">
-                                        <div class="col-md-12">
-                                        <div class="card">
-                                        <div class="card-header">
-                                        <h4>Family Details
-                                        <button type="button" style="float: right;" class="btn btn-primary" data-toggle="modal" data-target="#familyadd">
-                                        Add Family Members
-                                        </button>
-                                        </h4>
-                                        </div>
-                                        <div class="card-body">
-                                        <div class="table-responsive">
-                                        <table id="myTable1" class="table table-bordered table-striped">
-                                        <thead>
-                                        <tr>
-                                        <th><b>S.No</b></th>
-                                        <th><b>Name</b></th>
-                                        <th><b>Relationship</b></th>
-                                        <th><b>Occupation</b></th>
-                                        <th><b>Organization</b></th>
-                                        <th><b>Mobile Number</b></th>
-                                        <th align="center"><b>Action</b></th>
-                                        </tr>
-                                        </thead>
-                                        </table>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        
-                                        <div class="tab-pane p-20" id="parents" role="tabpanel">
-                                        <div class="modal fade" id="studentAddParentMeetingDetails" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add Parents-Meeting Details</h5>
-                                        <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                                        <i class="mdi mdi-close"></i> 
-                                        </button>
-                                        </div>
-                                        <form id="saveparentsmeetingdetails">
-                                        <div class="modal-body">
-                                        <div id="errorparentsMessage" class="alert alert-warning d-none"></div>
-                                        <div class="mb-3">
-                                        <label for="date">Date* : </label>
-                                        <input type="date" name="pmdate" id="pmdate" class="form-control" required="">
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="purpose-meeting">Purpose of Meeting* : </label>
-                                        <input type="text" name="purpose" id="purpose-meeting" class="form-control" required="">
-                                        </div>
-                                        
-                                        </div>
-                                        <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save details</button>
-                                        </div>
-                                        </form>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        <div class="modal fade" id="parenteditmodel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Edit Meeting</h5>
-                                        <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                                        <i class="mdi mdi-close"></i> 
-                                        </button>
-                                        </div>
-                                        <form id="updparent">
-                                        <div class="modal-body">
-                                        <div id="errorMessageUpdate" class="alert alert-warning d-none"></div>
-                                        <input type="hidden" name="student_id3" id="student_id3">
-                                        <div class="mb-3">
-                                        <label for="date">Date* : </label>
-                                        <input type="date" name="pmdate2" id="pmdate2" class="form-control" required="">
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="purpose-meeting">Purpose of Meeting* : </label>
-                                        <br>
-                                        <input type="text" name="purpose-meeting2" id="purpose-meeting2" class="form-control" required="">
-                                        </div>
-                                        
-                                        <input type="hidden" name="status2" id="status2">
-                                        </div>
-                                        <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary btn-md">Update details</button>
-                                        </div>
-                                        </form>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        <div class="row">
-                                        <div class="col-md-12">
-                                        <div class="card">
-                                        <div class="card-header">
-                                        <h4>Parents-Meeting Details
-                                        <button type="button" style="float: right;" class="btn btn-primary" data-toggle="modal" data-target="#studentAddParentMeetingDetails">
-                                        Add details
-                                        </button>
-                                        </h4>
-                                        </div>
-                                        <div class="card-body">
-                                        <div class="table-responsive">
-                                        <table id="myTable30" class="table table-bordered table-striped">
-                                        <thead>
-                                        <tr>
-                                        <th><b>Date</b></th>
-                                        <th><b>Purpose of Meeting</b></th>
-                                        <th><b>Points Discussed</b></th>
-                                        <th><b>Action</b></th>
-                                        <th><b>Status</b></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                        </table>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        
                                         <div class="tab-pane p-20" id="nominee" role="tabpanel">
-                                        <div class="modal fade" id="mod" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add Counselling Details</h5>
-                                        <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                                        <i class="mdi mdi-close"></i> 
-                                        </button>
-                                        </div>
-                                        <form id="cform">
-                                        <div class="modal-body">
-                                        <div id="errorMessagec" class="alert alert-warning d-none"></div>
-                                        <div class="mb-3">
-                                        <label for="">Date *</label>
-                                        <input type="Date" name="datee" class="form-control" required="">
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="">Point Discussed *</label>
-                                        <textarea type="text" name="feedback" class="form-control" required=""></textarea>
-                                        </div>
-                                        
-                                        </div>
-                                        <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" name="cform" id="cform" class=" cform btn btn-primary">Add</button>
-                                        </div>
-                                        </form>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        <div class="row">
-                                        <div class="col-md-12">
-                                        <div class="card">
-                                        <div class="card-header">
-                                        <h4>Counselling Details
-                                        <button type="button" style="float: right;" class="btn btn-primary" data-toggle="modal" data-target="#mod">
-                                        Add Counselling Details
-                                        </button>
-                                        </h4>
-                                        </div>
-                                        <div class="card-body">
-                                        <div class="table-responsive">
-                                        <table id="myTablec" class="table table-bordered table-striped">
-                                        <thead>
-                                        <tr>
-                                        <th><b>S.No</b></th>
-                                        <th><b>Date</b></th>
-                                        <th><b>Point Discussed</b></th>
-                                        <th><b>Suggestion Given</b></th>
-                                        <th><b>Action</b></th>
-                                        <th><b>Status</b></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                        
-                                        </table>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
+                                            <div class="modal fade" id="mod" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add Counselling Details</h5>
+                                            <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                                            <i class="mdi mdi-close"></i> 
+                                            </button>
+                                            </div>
+                                            <form id="cform">
+                                            <div class="modal-body">
+                                            <div id="errorMessagec" class="alert alert-warning d-none"></div>
+                                            <div class="mb-3">
+                                            <label for="">Date *</label>
+                                            <input type="Date" name="datee" class="form-control" required="">
+                                            </div>
+                                            <div class="mb-3">
+                                            <label for="">Point Discussed *</label>
+                                            <textarea type="text" name="feedback" class="form-control" required=""></textarea>
+                                            </div>
+                                            
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" name="cform" id="cform" class=" cform btn btn-primary">Add</button>
+                                            </div>
+                                            </form>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-md-12">
+                                            <div class="card">
+                                            <div class="card-header">
+                                            <h4>Counselling Details
+                                            <button type="button" style="float: right;" class="btn btn-primary" data-toggle="modal" data-target="#mod">
+                                            Add Counselling Details
+                                            </button>
+                                            </h4>
+                                            </div>
+                                            <div class="card-body">
+                                            <div class="table-responsive">
+                                            <table id="myTablec" class="table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                            <th><b>S.No</b></th>
+                                            <th><b>Date</b></th>
+                                            <th><b>Point Discussed</b></th>
+                                            <th><b>Suggestion Given</b></th>
+                                            <th><b>Action</b></th>
+                                            <th><b>Status</b></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                            
+                                            </table>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
                                         <div class="tab-pane p-20" id="medical" role="tabpanel">
-                                        <div class="modal fade" id="studentViewModalms" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">View Certificate</h5>
-                                        <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                                        <i class="mdi mdi-close"></i> 
-                                        </button>
-                                        </div>
-                                        <div class="modal-body">
-                                        <img id="imagems" src="" alt="Co-Curricular" class="center" style="width:80%;height:80%;">
-                                        </div>
-                                        <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        <div class="modal fade" id="smmedical" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add Medical Leave Details</h5>
-                                        <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                                        <i class="mdi mdi-close"></i> 
-                                        </button>
-                                        </div>
-                                        <form id="smedical">
-                                        <div class="modal-body">
-                                        <div id="smedimsg" class="alert alert-warning d-none"></div>
-                                        <div class="mb-3">
-                                        <label for="">From Date *</label>
-                                        <input type="Date" name="fdatee" id="fromDate" class="form-control" required="">
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="">To Date *</label>
-                                        <input type="Date" name="tdatee" id="toDate" class="form-control" required="">
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="">Total Days*</label>
-                                        <input type="text" name="tdays" id="totalDays" class="form-control" required="">
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="">Reason *</label>
-                                        <textarea type="text" name="reason" class="form-control" required=""></textarea>
-                                        </div>
-                                        <div class="mb-3">
-                                        <label for="">Medical Certificate*</label>
-                                        <label for="">(upload less than 2 mb)</label> <br>
-                                        <div class="input-group">
-                                        <input type="file" class="form-control custom-file-input" name="mcert" id="uploadFile" onchange="if (!window.__cfRLUnblockHandlers) return false; return fileValidation2()" aria-describedby="inputGroupPrepend" required="">
-                                        <label class="custom-file-label" for="customFile">Choose file(Image)</label>
-                                        </div>
-                                        <p style="color:red;" id="tutorial"></p>
-                                        </div>
-                                        
-                                        </div>
-                                        <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" name="cform" id="cform" class=" cform btn btn-primary">Add</button>
-                                        </div>
-                                        </form>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        <div class="row">
-                                        <div class="col-md-12">
-                                        <div class="card">
-                                        <div class="card-header">
-                                        <h4>Medical Leave Details
-                                        <button type="button" style="float: right;" class="btn btn-primary" data-toggle="modal" data-target="#smmedical">
-                                        Add Medical Leave Details
-                                        </button>
-                                        </h4>
-                                        </div>
-                                        <div class="card-body">
-                                        <div class="table-responsive">
-                                        <table id="smedic" class="table table-bordered table-striped">
-                                        <thead>
-                                        <tr>
-                                        <th><b>S.No</b></th>
-                                        <th><b>From</b></th>
-                                        <th><b>To</b></th>
-                                        <th><b>Total Days</b></th>
-                                        <th><b>Reason</b></th>
-                                        <th><b>View</b></th>
-                                        <th><b>Action</b></th>
-                                        <th><b>Status</b></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                        
-                                        </table>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
+                                            <div class="modal fade" id="studentViewModalms" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">View Certificate</h5>
+                                            <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                                            <i class="mdi mdi-close"></i> 
+                                            </button>
+                                            </div>
+                                            <div class="modal-body">
+                                            <img id="imagems" src="" alt="Co-Curricular" class="center" style="width:80%;height:80%;">
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <div class="modal fade" id="smmedical" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add Medical Leave Details</h5>
+                                            <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                                            <i class="mdi mdi-close"></i> 
+                                            </button>
+                                            </div>
+                                            <form id="smedical">
+                                            <div class="modal-body">
+                                            <div id="smedimsg" class="alert alert-warning d-none"></div>
+                                            <div class="mb-3">
+                                            <label for="">From Date *</label>
+                                            <input type="Date" name="fdatee" id="fromDate" class="form-control" required="">
+                                            </div>
+                                            <div class="mb-3">
+                                            <label for="">To Date *</label>
+                                            <input type="Date" name="tdatee" id="toDate" class="form-control" required="">
+                                            </div>
+                                            <div class="mb-3">
+                                            <label for="">Total Days*</label>
+                                            <input type="text" name="tdays" id="totalDays" class="form-control" required="">
+                                            </div>
+                                            <div class="mb-3">
+                                            <label for="">Reason *</label>
+                                            <textarea type="text" name="reason" class="form-control" required=""></textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                            <label for="">Medical Certificate*</label>
+                                            <label for="">(upload less than 2 mb)</label> <br>
+                                            <div class="input-group">
+                                            <input type="file" class="form-control custom-file-input" name="mcert" id="uploadFile" onchange="if (!window.__cfRLUnblockHandlers) return false; return fileValidation2()" aria-describedby="inputGroupPrepend" required="">
+                                            <label class="custom-file-label" for="customFile">Choose file(Image)</label>
+                                            </div>
+                                            <p style="color:red;" id="tutorial"></p>
+                                            </div>
+                                            
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" name="cform" id="cform" class=" cform btn btn-primary">Add</button>
+                                            </div>
+                                            </form>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-md-12">
+                                            <div class="card">
+                                            <div class="card-header">
+                                            <h4>Medical Leave Details
+                                            <button type="button" style="float: right;" class="btn btn-primary" data-toggle="modal" data-target="#smmedical">
+                                            Add Medical Leave Details
+                                            </button>
+                                            </h4>
+                                            </div>
+                                            <div class="card-body">
+                                            <div class="table-responsive">
+                                            <table id="smedic" class="table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                            <th><b>S.No</b></th>
+                                            <th><b>From</b></th>
+                                            <th><b>To</b></th>
+                                            <th><b>Total Days</b></th>
+                                            <th><b>Reason</b></th>
+                                            <th><b>View</b></th>
+                                            <th><b>Action</b></th>
+                                            <th><b>Status</b></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                            
+                                            </table>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
                                         <div class="tab-pane p-20" id="swot" role="tabpanel">
-                                        <form id="swot" class="needs-validation" novalidate="">
-                                        <div id="swotmsg" class="alert alert-warning d-none"></div>
-                                        <div class="card-header">
-                                        <h4> SWOT Analysis </h4>
-                                        </div>
-                                        <div class="form-row">
-                                        <div class="col-md-6 mb-1">
-                                        <label for="validationCustom01">Strengths</label>
-                                        <input type="text" name="Strengths" class="form-control" id="validationCustom01" placeholder="Strengths" value="">
-                                        <div class="valid-feedback">
-                                        Looks good!
-                                        </div>
-                                        </div>
-                                        <div class="col-md-6 mb-1">
-                                        <label for="validationCustom02">Weaknesses</label>
-                                        <input type="text" class="form-control" name="Weaknesses" id="validationCustom02" placeholder="Weaknesses" value="">
-                                        <div class="valid-feedback">
-                                        Looks good!
-                                        </div>
-                                        </div>
-                                        </div>
-                                        <div class="form-row">
-                                        <div class="col-md-6 mb-1">
-                                        <label for="validationCustom02">Opportunities</label>
-                                        <input type="text" class="form-control" name="Opportunities" id="validationCustom02" placeholder="Opportunities" value="">
-                                        <div class="valid-feedback">
-                                        Looks good!
-                                        </div>
-                                        </div>
-                                        <div class="col-md-6 mb-1">
-                                        <label for="validationCustom02">Threats</label>
-                                        <input type="text" class="form-control" name="Threats" id="validationCustom02" placeholder="Threats" value="">
-                                        <div class="valid-feedback">
-                                        Looks good!
-                                        </div>
-                                        </div>
-                                        </div>
-                                        <div class="form-row">
-                                        <button class="btn btn-primary" type="submit">Submit</button>
-                                        </div>
-                                        </form>
-                                        </div>
-                                        <div class="tab-pane p-20" id="swot" role="tabpanel">
-                                        <form id="swot" class="needs-validation" novalidate="">
-                                        <div id="swotmsg" class="alert alert-warning d-none"></div>
-                                        <div class="card-header">
-                                        <h4> SWOT Analysis </h4>
-                                        </div>
-                                        <div class="form-row">
-                                        <div class="col-md-6 mb-1">
-                                        <label for="validationCustom01">Strengths</label>
-                                        <input type="text" name="Strengths" class="form-control" id="validationCustom01" placeholder="Strengths" value="">
-                                        <div class="valid-feedback">
-                                        Looks good!
-                                        </div>
-                                        </div>
-                                        <div class="col-md-6 mb-1">
-                                        <label for="validationCustom02">Weaknesses</label>
-                                        <input type="text" class="form-control" name="Weaknesses" id="validationCustom02" placeholder="Weaknesses" value="">
-                                        <div class="valid-feedback">
-                                        Looks good!
-                                        </div>
-                                        </div>
-                                        </div>
-                                        <div class="form-row">
-                                        <div class="col-md-6 mb-1">
-                                        <label for="validationCustom02">Opportunities</label>
-                                        <input type="text" class="form-control" name="Opportunities" id="validationCustom02" placeholder="Opportunities" value="">
-                                        <div class="valid-feedback">
-                                        Looks good!
-                                        </div>
-                                        </div>
-                                        <div class="col-md-6 mb-1">
-                                        <label for="validationCustom02">Threats</label>
-                                        <input type="text" class="form-control" name="Threats" id="validationCustom02" placeholder="Threats" value="">
-                                        <div class="valid-feedback">
-                                        Looks good!
-                                        </div>
-                                        </div>
-                                        </div>
-                                        <div class="form-row">
-                                        <button class="btn btn-primary" type="submit">Submit</button>
-                                        </div>
-                                        </form>
-                                        </div>
-                                        </div>
-                                        </div>
+                                            <form id="swot" class="needs-validation" novalidate="">
+                                            <div id="swotmsg" class="alert alert-warning d-none"></div>
+                                            <div class="card-header">
+                                            <h4> SWOT Analysis </h4>
+                                            </div>
+                                            <div class="form-row">
+                                            <div class="col-md-6 mb-1">
+                                            <label for="validationCustom01">Strengths</label>
+                                            <input type="text" name="Strengths" class="form-control" id="validationCustom01" placeholder="Strengths" value="">
+                                            <div class="valid-feedback">
+                                            Looks good!
+                                            </div>
+                                            </div>
+                                            <div class="col-md-6 mb-1">
+                                            <label for="validationCustom02">Weaknesses</label>
+                                            <input type="text" class="form-control" name="Weaknesses" id="validationCustom02" placeholder="Weaknesses" value="">
+                                            <div class="valid-feedback">
+                                            Looks good!
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <div class="form-row">
+                                            <div class="col-md-6 mb-1">
+                                            <label for="validationCustom02">Opportunities</label>
+                                            <input type="text" class="form-control" name="Opportunities" id="validationCustom02" placeholder="Opportunities" value="">
+                                            <div class="valid-feedback">
+                                            Looks good!
+                                            </div>
+                                            </div>
+                                            <div class="col-md-6 mb-1">
+                                            <label for="validationCustom02">Threats</label>
+                                            <input type="text" class="form-control" name="Threats" id="validationCustom02" placeholder="Threats" value="">
+                                            <div class="valid-feedback">
+                                            Looks good!
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <div class="form-row">
+                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                            </div>
+                                            </form>
+                                            </div>
+                                            <div class="tab-pane p-20" id="swot" role="tabpanel">
+                                            <form id="swot" class="needs-validation" novalidate="">
+                                            <div id="swotmsg" class="alert alert-warning d-none"></div>
+                                            <div class="card-header">
+                                            <h4> SWOT Analysis </h4>
+                                            </div>
+                                            <div class="form-row">
+                                            <div class="col-md-6 mb-1">
+                                            <label for="validationCustom01">Strengths</label>
+                                            <input type="text" name="Strengths" class="form-control" id="validationCustom01" placeholder="Strengths" value="">
+                                            <div class="valid-feedback">
+                                            Looks good!
+                                            </div>
+                                            </div>
+                                            <div class="col-md-6 mb-1">
+                                            <label for="validationCustom02">Weaknesses</label>
+                                            <input type="text" class="form-control" name="Weaknesses" id="validationCustom02" placeholder="Weaknesses" value="">
+                                            <div class="valid-feedback">
+                                            Looks good!
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <div class="form-row">
+                                            <div class="col-md-6 mb-1">
+                                            <label for="validationCustom02">Opportunities</label>
+                                            <input type="text" class="form-control" name="Opportunities" id="validationCustom02" placeholder="Opportunities" value="">
+                                            <div class="valid-feedback">
+                                            Looks good!
+                                            </div>
+                                            </div>
+                                            <div class="col-md-6 mb-1">
+                                            <label for="validationCustom02">Threats</label>
+                                            <input type="text" class="form-control" name="Threats" id="validationCustom02" placeholder="Threats" value="">
+                                            <div class="valid-feedback">
+                                            Looks good!
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <div class="form-row">
+                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                            </div>
+                                            </form>
+                                            </div>
+                                            </div>
+                                            </div>
                                     
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
