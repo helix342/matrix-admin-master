@@ -251,7 +251,7 @@ $result = mysqli_query($conn, $sql);
                                                 <a class="nav-link" data-toggle="tab" href="#swot" role="tab" aria-selected="false"><span class="hidden-sm-up"></span> <span class="hidden-xs-down"><i class="bi bi-card-checklist"></i><b> SWOT Analysis</b></span></a> </li>
                                         </ul>
                                         <div class="tab-content tabcontent-border">
-                                        <div class="tab-pane active show" id="home" role="tabpanel">
+                                            <div class="tab-pane active show" id="home" role="tabpanel">
                                                 <form id="basic" class="needs-validation" novalidate="">
                                                     <div id="errorbasic" class="alert alert-warning d-none"></div>
                                                 <div class="card-header">
@@ -738,8 +738,67 @@ $result = mysqli_query($conn, $sql);
                                             </form>
                                             </div>
                                         
-                                        <div class="tab-pane p-20" id="profile" role="tabpanel">
-                                            <div class="modal fade" id="studentAcademic" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        
+                                            <div class="tab-pane p-20" id="profile" role="tabpanel">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="card-header">
+                                                                <h4>Academic Details
+                                                                    <button type="button" style="float:right;" class="btn btn-primary" data-toggle="modal" data-target="#Academicdetails">
+                                                                    Add details
+                                                                    </button>
+                                                                </h4>
+                                                            </div>   
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <div class="card-body">
+                                                                <div class="table-responsive">
+                                                                    <table id="myTable" class="table table-bordered table-striped">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th><b>S.No</b></th>
+                                                                        <th><b>Course</b></th>
+                                                                        <th><b>Institution Name</b></th>
+                                                                        <th><b>Board/University</b></th>
+                                                                        <th><b>Year of Passing</b></th>
+                                                                        <th><b>Percentage/CGPA</b></th>
+                                                                        <th><b>Certificate </b></th>
+                                                                        <th><b>Action</b></th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <?php
+                                                                        $id = 1;
+                                                                        while ($row = mysqli_fetch_assoc($result)){ 
+                                                                        ?>
+                                                                        <tr>
+                                                                            <td><?php echo $id; ?></td>
+                                                                            <td><?php echo $row['Course']; ?></td>
+                                                                            <td><?php echo $row['InstName']; ?></td>
+                                                                            <td><?php echo $row['Uni']; ?></td>
+                                                                            <td><?php echo $row['YoP']; ?></td>
+                                                                            <td><?php echo $row['Percentag']; ?></td>
+                                                                            <td>
+                                                                                <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-success btncertificate">Certificate</button>
+                                                                                
+                                                                            </td>
+                                                                            <td>
+                                                                                <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-warning btndetailedit" data-toggle="modal" data-target="#studentEditModal">Edit</button>
+                                                                                <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-danger btndetaildelete">Delete</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <?php
+                                                                        $id++;
+                                                                        }
+                                                                        ?>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+
+                                                <div class="modal fade" id="Academicdetails" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -748,64 +807,55 @@ $result = mysqli_query($conn, $sql);
                                                                 <i class="mdi mdi-close"></i> 
                                                                 </button>
                                                         </div>
-                                                        <form id="sacademic">
-                                                        <div class="modal-body">
-                                                        <div id="errorsacademic" class="alert alert-warning d-none"></div>
-                                                        <div class="mb-3">
-                                                        <label for="">Course *</label>
-                                                        <select class="form-control" name="course" id="course" onchange="if (!window.__cfRLUnblockHandlers) return false; toggleDivVisibility()" required="">
-                                                        <option value="">Select Course</option>
-                                                        <option value="SSLC">SSLC</option>
-                                                        <option value="HSC">HSC</option>
-                                                        <option value="ITI">ITI</option>
-                                                        <option value="DIPLOMA">DIPLOMA</option>
-                                                        <option value="UG">UG</option>
-                                                        </select>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                        <label for="validationCustom03">Degree *</label>
-                                                        <select class="form-control" name="degree" id="degree" required="">
-                                                        <option value="">Select Degree</option>
-                                                        <option value="B.Tech">B.Tech</option>
-                                                        <option value="B.E">B.E</option>
-                                                        <option value="M.E">M.E</option>
-                                                        </select>
-                                                        </div>
-                                                        <div class="mb-3" id="spec">
-                                                        <label for="">Specialization / Branch *</label>
-                                                        <input type="text" name="branch" id="branch" class="form-control" placeholder="Enter Specilization">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                        <label for="">Institution Name *</label>
-                                                        <input type="text" name="iname" class="form-control" placeholder="Enter Institution Name">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                        <label for="">Board/University *</label>
-                                                        <input type="text" name="univ" class="form-control" placeholder="Enter Board/University Name">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                        <label for="">Year of Completion *</label>
-                                                        <input type="text" name="yc" class="form-control">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                        <label for="">Percentage (%)/CGPA*</label>
-                                                        <input type="text" name="score" class="form-control">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                        <label for="">Certificate*</label>
-                                                        <label for="">(upload less than 2 mb)</label>
-                                                        <div class="input-group">
-                                                        <input type="file" class="form-control custom-file-input" name="cert" id="uploadFile2" onchange="if (!window.__cfRLUnblockHandlers) return false; return fileValidationcert()" aria-describedby="inputGroupPrepend" required="">
-                                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                                        </div>
-                                                        <p style="color:red;" id="tutorial"></p>
-                                                        </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Save details</button>
-                                                        </div>
-                                                        <div id="test"> </div>
+                                                        <form id="addnew">
+                                                            <div class="modal-body">
+                                                                    <div class="mb-3">
+                                                                        <label for="Course">Course *</label>
+                                                                        <select class="form-control" name="Course" required>
+                                                                            <option value="">Select Course</option>
+                                                                            <option value="SSLC">SSLC</option>
+                                                                            <option value="HSC">HSC</option>
+                                                                            <option value="ITI">ITI</option>
+                                                                            <option value="DIPLOMA">DIPLOMA</option>
+                                                                            <option value="UG">UG</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="Degree">Degree *</label>
+                                                                        <select class="form-control" name="Degree" required>
+                                                                            <option value="">Select Degree</option>
+                                                                            <option value="B.Tech">B.Tech</option>
+                                                                            <option value="B.E">B.E</option>
+                                                                            <option value="M.E">M.E</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="Spec">Specialization / Branch *</label>
+                                                                        <input type="text" name="Spec" class="form-control" placeholder="Enter Specilization">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="InstName">Institution Name *</label>
+                                                                        <input type="text" name="InstName" class="form-control" placeholder="Enter Institution Name">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="Uni">Board/University *</label>
+                                                                        <input type="text" name="Uni" class="form-control" placeholder="Enter Board/University Name">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="YoP">Year of Completion *</label>
+                                                                        <input type="text" name="YoP" class="form-control">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="Percentag">Percentage (%)/CGPA*</label>
+                                                                        <input type="text" name="Percentag" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Save details</button>
+                                                                </div>
+                                                                <div id="test"> 
+                                                            </div>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -822,7 +872,7 @@ $result = mysqli_query($conn, $sql);
                                                         <form id="updateStudent">
                                                         <div class="modal-body">
                                                             <div id="errorMessageUpdate" class="alert alert-warning d-none"></div>
-                                                            <input type="hidden" name="student_id" id="student_id">
+                                                            <input type="hidden" name="id" id="detail_id">
                                                             <div class="mb-3">
                                                             <label for="">Course *</label>
                                                             <select class="form-control" name="course" id="course2" onchange="if (!window.__cfRLUnblockHandlers) return false; toggleDivVisibility1()" required="">
@@ -862,79 +912,12 @@ $result = mysqli_query($conn, $sql);
                                                                 <label for="">Percentage (%)/CGPA*</label>
                                                                 <input type="text" name="score" id="score" class="form-control">
                                                             </div>
-                                                            <div class="mb-3">
-                                                                <label for="">Certificate*</label>
-                                                                <label for="">(upload less than 2 mb)</label>
-                                                                <div class="input-group">
-                                                                    <input type="file" class="form-control custom-file-input" name="cert" id="uploadFile3" onchange="if (!window.__cfRLUnblockHandlers) return false; return fileValidationucert()" aria-describedby="inputGroupPrepend" required="">
-                                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                                </div>
-                                                                <p style="color:red;" id="tutorial"></p>
-                                                            </div>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn btn-primary">Update details</button>
                                                         </div>
                                                     </form>
-                                                    </div>
-                                                </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="card">
-                                                            <div class="card-header">
-                                                                <h4>Academic Details
-                                                                    <button type="button" style="float:right;" class="btn btn-primary" data-toggle="modal" data-target="#studentAcademic">
-                                                                    Add details
-                                                                    </button>
-                                                                </h4>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <div class="table-responsive">
-                                                                    <table id="myTable" class="table table-bordered table-striped">
-                                                                    <thead>
-                                                                    <tr>
-                                                                        <th><b>S.No</b></th>
-                                                                        <th><b>Course</b></th>
-                                                                        <th><b>Institution Name</b></th>
-                                                                        <th><b>Board/University</b></th>
-                                                                        <th><b>Year of Passing</b></th>
-                                                                        <th><b>Percentage/CGPA</b></th>
-                                                                        <th><b>Certificate </b></th>
-                                                                        <th><b>Action</b></th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <?php
-                                                                        $id = 1;
-                                                                        while ($row = mysqli_fetch_assoc($result)){ 
-                                                                        ?>
-                                                                        <tr>
-                                                                            <td><?php echo $id; ?></td>
-                                                                            <td><?php echo $row['Course']; ?></td>
-                                                                            <td><?php echo $row['Institution Name']; ?></td>
-                                                                            <td><?php echo $row['Board/University']; ?></td>
-                                                                            <td><?php echo $row['Year of Passing']; ?></td>
-                                                                            <td><?php echo $row['Percentage/CGPA']; ?></td>
-                                                                            <td>
-                                                                                <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-success btncertificate">Certificate</button>
-                                                                                
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-warning btnuseredit" data-target="#studentEditModal">Edit</button>
-                                                                                <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-danger btnuserdelete">Delete</button>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <?php
-                                                                        $id++;
-                                                                        }
-                                                                        ?>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1514,7 +1497,116 @@ $result = mysqli_query($conn, $sql);
     <script src="assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
     <script src="assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="assets/libs/quill/dist/quill.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" crossorigin="anonymous"></script> -->
+
     <script>
+
+            $(document).ready(function () {
+                    var table = $('#myTable').DataTable();
+
+            $(document).on('submit','#addnew', function (e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                formData.append("add_detail", true);
+                $.ajax({
+                    type: "POST",
+                    url: "backend.php",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        var res = jQuery.parseJSON(response);
+                        if (res.status == 200) {
+                            $('#Academicdetails').modal('hide');
+                            $('#addnew')[0].reset();
+                            table.ajax.reload(); // Reload table data
+                            alert(res.message);
+                        } else if (res.status == 500) {
+                            $('#Academicdetails').modal('hide');
+                            $('#addnew')[0].reset();
+                            console.error("Error:", res.message);
+                            alert("Something went wrong. Please try again.");
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '.btndetaildelete', function (e) {
+                e.preventDefault();
+                if (confirm('Are you sure you want to delete this data?')) {
+                    var user_id = $(this).val();
+                    $.ajax({
+                        type: "POST",
+                        url: "backend.php",
+                        data: {
+                            'delete_details': true,
+                            'user_id': user_id
+                        },
+                        success: function (response) {
+                            var res = jQuery.parseJSON(response);
+                            if (res.status == 500) {
+                                alert(res.message);
+                            } else {
+                                table.ajax.reload(); // Reload table data
+                            }
+                        }
+                    });
+                }
+            });
+
+            // Edit user
+            $(document).on('click', '.btndetailedit', function (e) {
+                e.preventDefault();
+                var user_id = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: "backend.php",
+                    data: { 'get_id': true, 'id': detail_id },
+                    success: function (response) {
+                        var res = jQuery.parseJSON(response);
+                        if (res.status == 200) {
+                            $('#detail_id').val(res.data.id);
+                            $('#course2').val(res.data.course);
+                            $('#name').val(res.data.iname);
+                            $('#univ').val(res.data.bname);
+                            $('#yc').val(res.data.yop);
+                            $('#score').val(res.data.gpa);
+                            $('#studentEditModal').modal('show');
+                        } else {
+                            alert(res.message);
+                        }
+                    }
+                });
+            });
+
+            $(document).on('submit', '#updateStudent', function (e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                formData.append("update_id", true);
+                $.ajax({
+                    type: "POST",
+                    url: "backend.php",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        var res = jQuery.parseJSON(response);
+                        if (res.status == 200) {
+                            $('#studentEditModal').modal('hide');
+                            $('#updateStudent')[0].reset();
+                            table.ajax.reload(); // Reload table data
+                            alert(res.message);
+                        } else if (res.status == 500) {
+                            console.error("Error:", res.message);
+                            alert("Something went wrong. Please try again.");
+                        }
+                    }
+                });
+            });
+        });                                                        
+
         //***********************************//
         // For select 2
         //***********************************//
@@ -1522,14 +1614,6 @@ $result = mysqli_query($conn, $sql);
 
         /*colorpicker*/
         $('.demo').each(function() {
-        //
-        // Dear reader, it's actually very easy to initialize MiniColors. For example:
-        //
-        //  $(selector).minicolors();
-        //
-        // The way I've done it below is just for the demo, so don't get confused
-        // by it. Also, data- attributes aren't supported at this time...they're
-        // only used for this demo.
         //
         $(this).minicolors({
                 control: $(this).attr('data-control') || 'hue',
